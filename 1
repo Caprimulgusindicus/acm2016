@@ -1,0 +1,99 @@
+#include <iostream>
+#include <stdio.h>
+#include <map>
+#include <cstring>
+#include <cstdio>
+#include <algorithm>
+#include <string>
+#include <string.h>
+using namespace std;
+int graph[222][222];
+int dp[222][2];
+
+bool flag;
+int n;
+
+int ans(int i,int j)
+{
+    if(dp[i][j]!=-1) return dp[i][j];
+    if(j)
+    {
+        int sum=1;
+        for(int k=1;k<=n;k++)
+            if(graph[i][k]) sum+=ans(k,0);
+        dp[i][j]=sum;
+        return sum;
+    }
+    else
+    {
+        int sum=0;
+        for(int k=1;k<=n;k++)
+            if(graph[i][k]) sum+=max(ans(k,0),ans(k,1));
+        dp[i][j]=sum;
+        return sum;
+    }
+}
+
+int main()
+{
+    while(scanf("%d",&n)!=EOF &&n)
+    {
+        for(int i = 1; i <= n; i++)//初始化
+         for(int j = 1; j <= n; j++)
+         {
+             graph[i][j] = 0; dp[i][0] = -1; dp[i][1] = -1;
+         }
+         char s1[110],s2[110];
+
+        scanf("%s",s1);//big boss
+        //printf("%s\n",s1);
+        string ss1,ss2;
+        map <string,int> rec;
+        int num=0;ss1=s1;rec[ss1]=++num;//初始化
+
+        for(int i=1;i<n;i++)
+        {
+            scanf("%s %s",s1,s2);
+            ss1=s1;ss2=s2;
+            if(!rec[ss1]) rec[ss1]=++num;
+            if(!rec[ss2]) rec[ss2]=++num;
+            graph[rec[ss2]][rec[ss1]]=1;
+        }
+
+        for(int i=1;i<=n;i++)
+        {
+            int sum=0;
+            for(int j=1;j<=n;j++)
+                if(graph[i][j]) sum++;
+            if(!sum)
+            {
+                dp[i][0]=0;dp[i][1]=1;
+            }
+        }
+        int anss=max(ans(1,0),ans(1,1));
+        printf("%d ",anss);
+        if(n==1) {printf("Yes\n");continue ;}
+        if(n==2) {printf("No\n");continue;}
+
+            flag=1;
+            int jj;
+            for(int i=1;i<=n;i++)
+            {
+
+                if(dp[i][1]==dp[i][0])
+                {
+                     for(jj=1;jj<=n;jj++);
+                        if(graph[i][jj]&&dp[jj][1]==dp[jj][0])
+                        {
+                            flag=false;break;
+                        }
+                }
+                if(!flag) break;
+            }
+
+            if(!flag) printf("No\n");
+                    else printf("Yes\n");
+
+    }
+    return 0;
+}
