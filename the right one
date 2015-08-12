@@ -1,0 +1,99 @@
+#include <iostream>
+#include <stdio.h>
+#include <map>
+#include <cstring>
+#include <cstdio>
+#include <algorithm>
+#include <string>
+#include <string.h>
+using namespace std;
+int graph[222][222];
+int dp[222][2];
+
+bool flag;
+int n;
+
+int ans(int i,int j)
+{
+    if(dp[i][j]!=-1) return dp[i][j];
+    if(j)
+    {
+        int sum=1;
+        for(int k=1;k<=n;k++)
+            if(graph[i][k]) sum+=ans(k,0);
+        dp[i][j]=sum;
+        return sum;
+    }
+    else
+    {
+        int sum=0;
+        for(int k=1;k<=n;k++)
+            if(graph[i][k]) sum+=max(ans(k,0),ans(k,1));
+        dp[i][j]=sum;
+        return sum;
+    }
+}
+
+int main()
+{
+//这一段出现了迷之错误
+//详情可看http://paste.ubuntu.com/12059898/ 
+//后来找了段标程 默写了这一段
+//至今仍未解 感觉是一样的啊。。。
+   while(scanf("%d",&n) == 1 && n)
+   {
+      for(int i = 1; i <= n; i++)
+         for(int j = 1; j <= n; j++)
+         {
+             graph[i][j] = 0; dp[i][0] = -1; dp[i][1] = -1;
+         }
+      char name1[111],name2[111];
+      scanf("%s",name1);
+      string s1, s2;
+      map<string,int> res;
+      int num = 0;
+      s1 = name1;
+      res[s1] = ++num;
+      for(int i = 1; i < n; i++)
+      {
+         scanf("%s%s",name1,name2);
+         s1 = name1; s2 = name2;
+         if(!res[s1]) res[s1] = ++num;
+         if(!res[s2]) res[s2] = ++num;
+         graph[res[s2]][res[s1]] = 1;
+      }
+      for(int i = 1; i <= n; i++)
+      {
+         int sum = 0;
+         for(int j = 1; j <= n; j++)
+            if(graph[i][j]) sum ++;
+         if(!sum)
+         {
+            dp[i][1] = 1; dp[i][0] = 0;
+         }
+      }
+      int anans=max(ans(1,0),ans(1,1));
+      printf("%d ",anans);
+      if(n == 2) { puts("No"); continue;}
+      if(n == 1) { puts("Yes"); continue;}
+      flag = 1;
+      for(int i = 1; i <= n; i++)
+      {
+         if(dp[i][1] == dp[i][0])
+         {
+            for(int j = 1; j <= n; j++)
+            {
+               if(graph[i][j] && dp[j][1] == dp[j][0])
+               {
+                  flag = false;
+                  break;
+               }
+            }
+         }
+         if(!flag) break;
+      }
+      if(!flag) puts("No");
+      else  puts("Yes");
+   }
+   return(0);
+}
