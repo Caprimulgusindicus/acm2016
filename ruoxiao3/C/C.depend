@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1443948128 source:d:\github\acm2015summer\ruoxiao3\c\main.cpp
+	<iostream>
+	<stdio.h>
+	<algorithm>
+	<cstring>
+	<cstdio>
+
