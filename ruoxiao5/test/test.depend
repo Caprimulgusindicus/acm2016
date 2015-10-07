@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1444193357 source:d:\github\acm2015summer\ruoxiao5\test\main.cpp
+	<cstdio>
+	<iostream>
+	<sstream>
+	<fstream>
+	<cstring>
+	<cmath>
+	<algorithm>
+	<string>
+	<vector>
+	<map>
+	<set>
+	<queue>
+	<stack>
+	<list>
+	<cstdlib>
+	<ctime>
+
