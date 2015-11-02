@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1445768592 source:d:\github\acm2015summer\cf#327b\main.cpp
+	<iostream>
+	<string>
+	<string.h>
+	<stdio.h>
+
