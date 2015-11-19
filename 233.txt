@@ -19,10 +19,7 @@
 */
 
 #define  TASK_STK_SIZE                 512       /* Size of each task's stacks (# of WORDs)            */
-#define  N_TASKS                         4       /* Number of identical tasks                          */
-#define  width                          20
-#define  length                          4
-
+#define  N_TASKS                        4       /* Number of identical tasks                          */
 
 /*
 *********************************************************************************************************
@@ -34,9 +31,10 @@ OS_STK        TaskStk[N_TASKS][TASK_STK_SIZE];        /* Tasks stacks           
 OS_STK        TaskStartStk[TASK_STK_SIZE];
 char          TaskData[N_TASKS];                      /* Parameters to pass to each task               */
 OS_EVENT     *RandomSem;
-
 OS_EVENT     *AckMbox;                                /* Message mailboxes for Tasks #4 and #5         */
 OS_EVENT     *TxMbox;
+
+
 /*
 *********************************************************************************************************
 *                                           FUNCTION PROTOTYPES
@@ -44,7 +42,7 @@ OS_EVENT     *TxMbox;
 */
 
         void  Task(void *data);                       /* Function prototypes of tasks                  */
-        void  Task5(void *data);
+	void  Task5(void *data);
         void  TaskStart(void *data);                  /* Function prototypes of Startup task           */
 static  void  TaskStartCreateTasks(void);
 static  void  TaskStartDispInit(void);
@@ -97,10 +95,10 @@ void  TaskStart (void *pdata)
     OS_EXIT_CRITICAL();
 
     OSStatInit();                                          /* Initialize uC/OS-II's statistics         */
-
+    
     AckMbox = OSMboxCreate((void *)0);                     /* Create 2 message mailboxes               */
     TxMbox  = OSMboxCreate((void *)0);
-   
+
     TaskStartCreateTasks();                                /* Create all the application tasks         */
 
     for (;;) {
@@ -129,31 +127,56 @@ static  void  TaskStartDispInit (void)
 {
 /*                                1111111111222222222233333333334444444444555555555566666666667777777777 */
 /*                      01234567890123456789012345678901234567890123456789012345678901234567890123456789 */
-    PC_DispStr( 0,  0, "                         uC/OS-II, The Real-Time Kernel --WR                    ", DISP_FGND_WHITE + DISP_BGND_RED + DISP_BLINK);
-    PC_DispStr( 0,  1, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  2, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  3, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  4, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  5, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  6, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  7, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  8, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0,  9, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 10, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 11, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 12, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 13, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 14, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 15, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 16, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 17, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 18, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 19, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 20, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 21, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 22, "#Tasks          :        CPU Usage:     %                                       ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 23, "#Task switch/sec:                                                               ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-    PC_DispStr( 0, 24, "                            <-PRESS 'ESC' TO QUIT->                             ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY + DISP_BLINK);
+    PC_DispStr( 0,  0, "                         uC/OS-II, The Real-Time Kernel                         ", DISP_FGND_WHITE + DISP_BGND_RED 
++ DISP_BLINK);
+    PC_DispStr( 0,  1, "                                Jean J. Labrosse                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  2, "                     Displaying 0~9 with semaphore                              ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  3, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  4, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  5, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  6, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  7, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  8, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0,  9, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 10, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 11, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 12, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 13, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 14, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 15, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 16, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 17, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 18, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 19, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 20, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 21, "                                                                                ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 22, "#Tasks          :        CPU Usage:     %                                       ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 23, "#Task switch/sec:                                                               ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0, 24, "                            <-PRESS 'ESC' TO QUIT->                             ", DISP_FGND_BLACK + 
+DISP_BGND_LIGHT_GRAY + DISP_BLINK);
 /*                                1111111111222222222233333333334444444444555555555566666666667777777777 */
 /*                      01234567890123456789012345678901234567890123456789012345678901234567890123456789 */
 }
@@ -214,28 +237,33 @@ static  void  TaskStartCreateTasks (void)
 {
     INT8U  i;
 
+
     for (i = 0; i < N_TASKS-2; i++) {                        /* Create N_TASKS identical tasks           */
-	TaskData[i] =  '0'+i;                         /* Each task will display its own letter    */
+        TaskData[i] =  '0'+i;                         /* Each task will display its own letter    */
         OSTaskCreate(Task, (void *)&TaskData[i], &TaskStk[i][TASK_STK_SIZE - 1], i + 3);
 	OSTaskCreate(Task5, (void *)&TaskData[i], &TaskStk[i+2][TASK_STK_SIZE - 1], i + 1);
     }
-
-
 }
 
 /*
 *********************************************************************************************************
-*                                                  CLEAR TASKS
+*                                                  TASKS
 *********************************************************************************************************
 */
 
-void clear(INT8U n,INT8U c)
-{   
-    INT8U i=0;
-    //n=5,c=5;
-    for(i=0;i<c;i++)  
-       PC_DispStr( 0,   n+i, "                                                                                ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+void  clear_task (void *pdata)
+{
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  5, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  6, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  7, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  8, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  9, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  10, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  11, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    PC_DispStr( 0+(*(char *)pdata-'0')*25,  12, "                         ", DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+    
 }
+
 
 /*
 *********************************************************************************************************
@@ -249,57 +277,58 @@ void  Task (void *pdata)
     INT8U  x=0;
     INT8U  y=5;
     INT8U  err;
-    char s[80];
-   // char   txmsg;
-   // txmsg = 'A';
+    char s[10];
+   
+	
     for (;;) {
         OSSemPend(RandomSem, 0, &err);           /* Acquire semaphore to perform random numbers        */
-        sprintf(s, "%5d", random(1000)); 
-     
         OSSemPost(RandomSem);                    /* Release semaphore                                  */
-                                                 
-        PC_DispStr(x+(*(char *)pdata-'0')*35, y , s, DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);   /* Display the task number on the screen              */
-        x+=5;
-        if(x%width==0){
-           y++;
-           x=0;
-        }
-        if((y!=5)&&((y)%5==0)){
-           clear(5,5);
-           x=0;
-           y=5;
-        }
-        OSMboxPost(TxMbox,s);
-       // OSMboxPost(TxMbox,(void *)&txmsg);      /* Send message to Task #5                            */
+        OSMboxPost(TxMbox, (void *)&txmsg);      /* Send message to Task #5                            */
         OSMboxPend(AckMbox, 0, &err);            /* Wait for acknowledgement from Task #5              */
-       // txmsg++;
-        
-        OSTimeDly(50);                            /* Delay 1 clock tick                                 */
+	sprintf(s, "%5d", random(1000));
+	PC_DispStr(x%20+(*(char *)pdata-'0')*25, x/20+5, s, DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
+        x+=5;
+	
+	if(x==160)
+	{
+	    x=0;
+	    clear_task(pdata);
+	}	
+
+        OSTimeDly(100+10*((*(char *)pdata-'0')));                            /* Delay 1 clock tick                                 */
     }
 }
+
+/*
+*********************************************************************************************************
+*                                               TASK #5
+*
+* Description: This task displays messages sent by Task .  When the message is displayed, Task #5
+*              acknowledges Task #4.
+*********************************************************************************************************
+*/
+
 void  Task5 (void *data)
 {
     char  *rxmsg;
-    
     INT8U  err;
     INT8U  x=0;
     INT8U  y=15;
+
     data = data;
     for (;;) {
-        //rxmsg = (char *)OSMboxPend(TxMbox, 0, &err);                  /* Wait for message from Task #4 */
-        rxmsg=OSMboxPend(TxMbox, 0, &err); 
-        PC_DispStr(x+(*(char *)data-'0')*35, y , rxmsg, DISP_FGND_YELLOW + DISP_BGND_BLUE);
-        //PC_DispChar(x+(*(char *)data-'0')*35, y , *rxmsg, DISP_FGND_YELLOW + DISP_BGND_BLUE);
+        rxmsg = OSMboxPend(TxMbox, 0, &err);                  /* Wait for message from Task #4 */
+	PC_DispStr(x%20+(*(char *)data-'0')*25, y, rxmsg, DISP_FGND_YELLOW + DISP_BGND_BLUE);
         x+=5;
-        if(x%width==0){
-           y++;
-           x=0;
-        }
-        if((y!=15)&&((y)%5==0)){
-           clear(15,5);
-           x=0;
-           y=15;
-        }
+	if(x>20)
+		y+=1;
+	//if(x==160)
+	//{
+	//   x=0;
+	//    clear_task(data);
+	//}	
+
+	
         OSTimeDlyHMSM(0, 0, 1, 0);                                    /* Wait 1 second                 */
         OSMboxPost(AckMbox, (void *)1);                               /* Acknowledge reception of msg  */
     }
