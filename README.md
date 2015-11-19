@@ -1,2 +1,5 @@
-# acm2015summer
-主要包括专题算法、CodeForces、BestCoder以及多校
+﻿exercise 
+非实时比赛做出来的
+
+其他
+实时比赛做的

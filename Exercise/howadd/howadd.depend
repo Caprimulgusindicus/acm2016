@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1446566635 source:d:\github\acm2015summer\exercise\howadd\main.cpp
+	<iostream>
+	<stdio.h>
+
