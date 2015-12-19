@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1449044835 source:d:\github\acm2015summer\moviefan\main.cpp
+	<iostream>
+	<stdio.h>
+	<string.h>
+	<algorithm>
+

@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1449585067 source:d:\github\acm2015summer\2015-12-08\main.cpp
+	<iostream>
+	"2333.h"
+
+1449585045 d:\github\acm2015summer\2015-12-08\2333.h
+	<stdio.h>
+
+1449585018 source:d:\github\acm2015summer\2015-12-08\2.cpp
+	<stdio.h>
+	<iostream>
+	"2333.h"
+
