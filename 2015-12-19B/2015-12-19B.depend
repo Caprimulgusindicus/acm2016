@@ -1,5 +1,6 @@
 # depslib dependency file v1.0
-1450539511 source:d:\github\acm2015summer\2015-12-19b\main.cpp
+1450542224 source:d:\github\acm2015summer\2015-12-19b\main.cpp
 	<iostream>
 	<stdio.h>
+	<string.h>
 

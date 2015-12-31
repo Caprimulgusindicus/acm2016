@@ -1,35 +1,35 @@
 #include <iostream>
 #include <stdio.h>
+#include <string.h>
 using namespace std;
-int cal(int n,int k)
-{
-int i = 1;
-int temp1 = 1,temp2 =1;
-if (n==k)
-{
-return 1;
-}
-else
-{
-for (i=1;i<=k;i++)
-{
-temp1 *= n-i+1;
-temp2 *=i;
-}
-temp1 /=temp2;
-return temp1;
-}
-}
+
 int main()
 {
     int n,m;
-    int a[111111];
+    //int a[111111];
+    int b[111];
+    int ans;
     while(~scanf("%d%d",&n,&m))
     {
-        int tmp=n-m;
+        memset(b,0,sizeof(b));
+        ans=0;
         for(int i=1;i<=n;i++)
-            scanf("%d",&a[i]);
-        cout<<cal(n,2)-tmp<<endl;
+        {
+            int a;
+            scanf("%d",&a);
+            b[a]++;
+           // cout<<b[a]<<endl;
+        }
+        for(int i=1;i<=10;i++)
+        {
+            for(int j=i+1;j<=10;j++)
+             {
+                 ans+=b[i]*b[j];
+                //cout<<b[i]<<" "<<ans<<endl;
+             }
+        }
+        cout<<ans<<endl;
+
     }
     return 0;
 }
