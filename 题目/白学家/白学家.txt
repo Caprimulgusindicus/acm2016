@@ -1,0 +1,22 @@
+﻿题目描述：
+　　「为什么你会这么熟练啊」，Kirai最近一不小心成为了白学家，不管Helena说什么，Kirai总会借机玩出这个烂梗。为此Helena感到非常苦恼，她已经厌倦了Kirai的白学梗，但是又不忍心看着Kirai这样一天一天智障下去，她决定在Kirai说出这句话的时候打断他。
+　　现在，Kirai和Helena在聊天，由于Kirai打字速度非常快，Helena根本无法在第一时间内回复。所以Helena希望你帮帮她。Helena不希望看到Kirai的某句话中出现"skillful"字样(不包含引号)。注意，skillful可能未必全都是小写("SkIlLfUl"也符合)。
+
+输入：
+	输入数据包含T(T≤100)个测试样例，在接下来的T行内，每行由一个字符串S(len(S)≤1000)组成。
+
+输出：
+	如果Kirai某句话中有"skillful"出现，Helena会回复"touma is a little 3"(不包含引号)。如果Kirai某句话中没有"skillful"出现，Helena会回复"oh my little zz"
+
+输入样例：
+	4
+	why are you so SKILLFUL!
+	how many times have you kissed setsuna?
+	you are not Skillful enough my girl.
+	I'm So SkIlLfUl At DyNaMic PrOgRamMiNg, YANGMU WO!
+
+输出样例：
+	touma is a little 3
+	oh my little zz
+	touma is a little 3
+	touma is a little 3
