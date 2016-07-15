@@ -1,0 +1,16 @@
+{
+"configs" : [
+  {
+"server" : "us1.s1.igaotizi.com",
+"server_port" : 5569,
+"password" : "fenghuan00",
+"method" : "rc4-md5",
+"remarks" : ""}
+
+],
+"index" : 0,
+"global" : false,
+"enabled" : true,
+"shareOverLan" : false,
+"isDefault" : false,
+"localPort" : 1080}
