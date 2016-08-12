@@ -12,7 +12,8 @@ int main()
 {
 	priority_queue <ll,vector<ll>,greater<ll> > pq;
 	priority_queue <ll,vector<ll>,greater<ll> > pq2;
-
+	memset(x,0,sizeof(x));
+	memset(op,0,sizeof(op));
 	long long n;
 	char s[22];
 	scanf("%I64d",&n);
@@ -27,8 +28,6 @@ int main()
 		scanf("%I64d",&x[i]);
 	}
 //cout<<op[1]<<" "<<x[1]<<endl;
-
-
 int cnt=0;
 for(long long i=1;i<=n;i++)
 	{
@@ -38,8 +37,8 @@ for(long long i=1;i<=n;i++)
 		if(op[i]==1)//insert
 		{
 			pq.push(xx);
-			cnt+=1;
-			//printf("insert %I64d\n",x);		
+			cnt++;
+			//printf("insert %I64d\n",xx);		
 		}
 		else if(op[i]==2)//remove
 		{
@@ -47,40 +46,59 @@ for(long long i=1;i<=n;i++)
 			{
 				//printf("insert 0\n");
 				pq.push(0);
-				cnt+=1;
+				cnt++;
+				//printf("removeMin\n");	
 				pq.pop();
-				cnt+=1;
+				cnt++;
 			}
 			else{
-			pq.pop();cnt+=1;}
-			
-			//printf("removeMin %I64d\n",x);		
+			pq.pop();
+			cnt++;
+			//printf("removeMin\n");	
+		}
+				
 		}
 		else if(op[i]==3)//getmin
 		{
 			if(pq.empty())
 			{
+				//printf("insert %I64d\n",xx);
 				pq.push(xx);
-				cnt+=1;
+				cnt++;
+				//cnt+=1;
 			}
-			else if(pq.top()!=xx&&xx>pq.top())
+			else  if(pq.top()!=xx&&xx>pq.top())
 			{
-				//printf("removeMin\n");
-				pq.pop();
-				//printf("insert %I64d\n",x);
-				pq.push(xx);
-				cnt+=2;
+				while(xx>pq.top()&&(!pq.empty()))
+				{cnt++;
+					//printf("removeMin\n");
+					pq.pop();
+				}	
+				if(pq.empty())
+				{cnt++;
+					//printf("insert %I64d\n",xx);
+					pq.push(xx);
+				}
+				else if(pq.top()!=xx)
+				{cnt++;
+					//printf("insert %I64d\n",xx);
+					pq.push(xx);
+				}
+				
 			}
 			else if(pq.top()!=xx&&xx<pq.top())
-			{
-				//printf("insert %I64d\n",x);
+			{cnt++;
+				//printf("insert %I64d\n",xx);
 				pq.push(xx);
-				cnt+=1;
 			}
-			//printf("getMin %I64d\n",x);
-			cnt+=1;
+			cnt++;//printf("getMin %I64d\n",xx);
 		}
 	}
+	
+
+
+
+
 	printf("%d\n",cnt);
 	for(long long i=1;i<=n;i++)
 	{
@@ -100,8 +118,7 @@ for(long long i=1;i<=n;i++)
 				pq2.push(0);
 				printf("removeMin\n");	
 				pq2.pop();
-				//cout<<pq2.size()<<"233"<<endl;
-				//cnt+=1; 
+				
 			}
 			else{
 			pq2.pop();
@@ -116,12 +133,24 @@ for(long long i=1;i<=n;i++)
 				pq2.push(xx);
 				//cnt+=1;
 			}
-			else if(pq2.top()!=xx&&xx>pq2.top())
+			else  if(pq2.top()!=xx&&xx>pq2.top())
 			{
-				printf("removeMin\n");
-				pq2.pop();
-				printf("insert %I64d\n",xx);
-				pq2.push(xx);
+				while(xx>pq2.top()&&(!pq2.empty()))
+				{
+					printf("removeMin\n");
+					pq2.pop();
+				}	
+				if(pq2.empty())
+				{
+					printf("insert %I64d\n",xx);
+					pq2.push(xx);
+				}
+				else if(pq2.top()!=xx)
+				{
+					printf("insert %I64d\n",xx);
+					pq2.push(xx);
+				}
+				
 			}
 			else if(pq2.top()!=xx&&xx<pq2.top())
 			{
