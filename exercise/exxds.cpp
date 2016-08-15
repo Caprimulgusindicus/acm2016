@@ -35,8 +35,11 @@ int query(int l,int r,int i)
 	if(seg[i].l==l&&seg[i].r==r)
 		return seg[i].message;
 	int mid=(seg[i].l+seg[i].r)>>1;
-	
+	if(i>mid) query(mid,r);
+	else query(l,mid);
+
 }
+
 int main()
 {
 	return 0;
