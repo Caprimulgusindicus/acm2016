@@ -9,13 +9,11 @@ int main()
 	long long ans=0;
 	scanf("%I64d%I64d%I64d",&a[0],&a[1],&a[2]);
 	sort(a,a+3);
-	if(a[0]!=0&&a[1]!=0&&a[2]!=0)
-		ans=a[2]-a[1];
-	else if((a[0]==0)&&a[1]!=0&&a[2]!=0)
-		ans=a[2]-1;
-	else if(a[0]==0&&a[1]==0&&a[2]!=0)
-		ans=a[2]-a[0]-1;
-	else ans=0;
-	cout<<ans<<endl;
+	ans=a[1]-a[0];
+	if(a[2]-a[1]>1)
+		ans+=2*(a[2]-a[1]-1);
+	if(a[2]==a[1]) ans--;
+	if(ans>0) cout<<ans<<endl;
+	else cout<<0<<endl;
 	return 0;
 }
