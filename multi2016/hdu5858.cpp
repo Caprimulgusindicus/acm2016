@@ -24,6 +24,10 @@ int main()
 		double s21=beta*l*l*0.5;
 		double s23=(PI-alpha)*c*c*0.5;
 		double ans=4.0*(s23-(s21-s1));
+		cout<<s1<<endl;
+		cout<<s21<<endl;
+		cout<<s23<<endl;
+		cout<<alpha<<endl<<beta<<endl;
 		//cout<<s21-s1<<endl;
 		//cout<<s23<<endl;
 		//cout<<s23-(s21-s1)<<endl;
