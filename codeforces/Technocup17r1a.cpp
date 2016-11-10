@@ -19,7 +19,7 @@ int main()
 			else if(b%2==0)
 				b/=2,ans.push(b);
 			else {flag=1;break;}
-			cout<<b<<endl;
+			//cout<<b<<endl;
 		}
 		if(a==b) flag=1;
 		else flag=0;
