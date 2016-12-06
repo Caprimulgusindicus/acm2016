@@ -33,9 +33,14 @@ int main()
 	while(~scanf("%lld",&n))
 	{
 		cnt=0;
+		if(n%2==0&&n!=2) puts("2");
+		else
+		{
 		if(!is_prime(n)) dfs(n);
 		else cnt=1;
+		if(cnt==4) cnt=3;
 		cout<<cnt<<endl;
+	}
 	}
 	return 0;
 }
