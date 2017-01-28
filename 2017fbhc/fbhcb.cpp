@@ -4,9 +4,12 @@
 using namespace std;
 int main()
 {
+
 	int t;
 	int n;
 	int w[111];
+	freopen("inb.txt","r",stdin);
+	freopen("outb.txt","w",stdout);
 	scanf("%d",&t);
 	for(int ca=1;ca<=t;ca++)
 	{

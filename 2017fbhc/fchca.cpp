@@ -54,6 +54,8 @@ int main()
 {
 	int t;
 	//int n;
+		freopen("ina.txt","r",stdin);
+	freopen("outa.txt","w",stdout);
 	scanf("%d",&t);
 	for(int ca=1;ca<=t;ca++)
 	{
