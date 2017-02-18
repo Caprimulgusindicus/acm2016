@@ -14,7 +14,7 @@ int main()
 		scanf("%d%d%d",&n,&m,&k);
 		if(n>m) swap(n,m);
 		int ans=-1;
-		if(m>=2*k+3&&n>2)
+		if(m>=2*k+3&&n>=k+1)
 		{
 			ans=(n+k-1)/k;
 			if(n>=2*k+1)
