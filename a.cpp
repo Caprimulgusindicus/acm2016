@@ -1,0 +1,1 @@
+main(){int a,b,n;while((cin>>n)&&n){a=b=1;while(--n)a+=b=a-b;cout<<a<<endl;}}
